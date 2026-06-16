@@ -1,0 +1,196 @@
+:root {
+  /* Primary Colors */
+  --color-blue: #2E3192;
+  --color-teal: #42C1C7;
+  --color-orange: #F26522;
+  --color-yellow: #FAA61A;
+  --color-green: #8DC63F;
+
+  /* Secondary Colors */
+  --color-lavender: #BEB7CA;
+  --color-light-teal: #ACC1C2;
+  --color-sand: #D7BDB3;
+  --color-beige: #E2CDAF;
+  --color-soft-green: #C5D9A5;
+
+  /* Semantic Colors */
+  --color-bg: #FFFFFF;
+  --color-bg-alt: #F9F8F6;
+  --color-text: #2E3192; /* Deep blue for text */
+  --color-text-light: #5A5C7A;
+  --color-primary: #F26522; /* Default primary CTA color */
+  --color-secondary: #42C1C7;
+  --color-accent: #FAA61A;
+  
+  --font-heading: 'Anek Devanagari', sans-serif;
+  --font-body: 'Anek Devanagari', sans-serif;
+  
+  --transition-fast: 0.3s ease;
+  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  --border-radius-sm: 12px;
+  --border-radius-md: 24px;
+  --border-radius-lg: 48px;
+  --border-radius-pill: 999px;
+  
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: initial; /* Lenis will handle this */
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-bottom: var(--spacing-md);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+p {
+  font-size: 1.125rem;
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.section-padding {
+  padding: var(--spacing-xl) 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius-pill);
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+
+/* Lenis smooth scrolling classes */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+/* Premium Ambient Theme Aura */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.4;
+  filter: blur(120px);
+}
+
+body::before {
+  background: radial-gradient(circle at 30% 30%, var(--color-light-teal) 0%, transparent 60%);
+  animation: floatAura1 20s ease-in-out infinite alternate;
+}
+
+body::after {
+  background: radial-gradient(circle at 70% 70%, var(--color-sand) 0%, transparent 60%);
+  animation: floatAura2 25s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatAura1 {
+  0% { transform: translate(-10%, -10%) scale(1); }
+  50% { transform: translate(20%, 10%) scale(1.2); }
+  100% { transform: translate(-10%, 20%) scale(0.9); }
+}
+
+@keyframes floatAura2 {
+  0% { transform: translate(10%, 10%) scale(1); }
+  50% { transform: translate(-20%, -10%) scale(1.1); }
+  100% { transform: translate(10%, -20%) scale(0.9); }
+}

@@ -1,0 +1,84 @@
+.mission-values {
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.philosophy-timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 2rem 1rem;
+  scrollbar-width: none;
+}
+
+.philosophy-timeline::-webkit-scrollbar {
+  display: none;
+}
+
+.philosophy-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 120px;
+  position: relative;
+  z-index: 2;
+}
+
+.step-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.philosophy-step:hover .step-icon {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.step-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.step-connector {
+  flex: 1;
+  min-width: 50px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.step-connector svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@media (max-width: 992px) {
+  .philosophy-timeline {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .step-connector {
+    width: 20px;
+    height: 50px;
+    min-width: auto;
+    transform: rotate(90deg);
+  }
+}

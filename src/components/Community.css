@@ -1,0 +1,110 @@
+.community {
+  background-color: var(--color-bg-alt);
+  overflow: hidden;
+  position: relative;
+}
+
+.ecosystem-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ecosystem-center {
+  width: 180px;
+  height: 180px;
+  background-color: var(--color-bg);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 40px rgba(46, 49, 146, 0.15);
+  z-index: 10;
+}
+
+.ecosystem-center h3 {
+  color: var(--color-blue);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.ecosystem-center span {
+  color: var(--color-orange);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.ecosystem-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 1rem;
+  transform: rotate(var(--angle)) translate(250px) rotate(calc(-1 * var(--angle)));
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease;
+  z-index: 5;
+}
+
+.ecosystem-node:hover {
+  transform: rotate(var(--angle)) translate(250px) rotate(calc(-1 * var(--angle))) scale(1.1);
+  z-index: 20;
+}
+
+.node-content h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-heading);
+}
+
+.node-content p {
+  font-size: 0.8rem;
+  margin: 0;
+  opacity: 0.9;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .ecosystem-container {
+    height: auto;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .ecosystem-center {
+    margin-bottom: 2rem;
+  }
+  
+  .ecosystem-node {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 0;
+    transform: none !important;
+    width: 80%;
+    max-width: 300px;
+    height: auto;
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+  }
+  
+  .ecosystem-node:hover {
+    transform: scale(1.05) !important;
+  }
+}

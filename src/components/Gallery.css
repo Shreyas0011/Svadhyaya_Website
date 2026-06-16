@@ -1,0 +1,110 @@
+.gallery {
+  background-color: var(--color-bg-alt);
+}
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.filter-btn {
+  background: none;
+  border: 1px solid rgba(45, 48, 42, 0.2);
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--border-radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filter-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+/* Masonry Grid Styles */
+.my-masonry-grid {
+  display: flex;
+  margin-left: -30px; /* gutter size offset */
+  width: auto;
+}
+
+.my-masonry-grid_column {
+  padding-left: 30px; /* gutter size */
+  background-clip: padding-box;
+}
+
+.gallery-item {
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--transition-slow);
+}
+
+.gallery-item:nth-child(3n+1) {
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+}
+
+.gallery-item:nth-child(3n+2) {
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  aspect-ratio: 4/5;
+}
+
+.gallery-item:nth-child(3n+3) {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  aspect-ratio: 5/4;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(46, 49, 146, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  backdrop-filter: blur(2px);
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+
+/* Lightbox customizations */
+.yarl__container {
+  background-color: rgba(25, 26, 24, 0.95) !important;
+  backdrop-filter: blur(10px);
+}

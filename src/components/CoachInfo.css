@@ -1,0 +1,82 @@
+.coach-info {
+  background-color: transparent;
+  position: relative;
+}
+
+.coach-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .coach-grid {
+    grid-template-columns: 2fr 3fr;
+    gap: 4rem;
+  }
+}
+
+.coach-image-wrapper {
+  position: relative;
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(46, 49, 146, 0.1);
+}
+
+.coach-badge {
+  position: absolute;
+  bottom: 2rem;
+  right: -1rem;
+  padding: 1.5rem;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  transform: translateX(-2rem);
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.coach-story-text {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 3rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+.coach-lead {
+  font-size: 1.2rem;
+  color: var(--color-text);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.coach-story-text p {
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.coach-highlight {
+  font-weight: 600;
+  color: var(--color-blue);
+  font-size: 1.15rem !important;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(46, 49, 146, 0.1);
+}
+
+@media (max-width: 768px) {
+  .coach-story-text {
+    padding: 1.5rem;
+  }
+}

@@ -1,0 +1,226 @@
+.blogs {
+  background-color: transparent;
+  position: relative;
+}
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .blogs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .blogs-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(46, 49, 146, 0.1);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  height: 100%;
+  text-decoration: none;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(46, 49, 146, 0.2);
+}
+
+.blog-card-accent {
+  height: 6px;
+  width: 100%;
+}
+
+.blog-card-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.blog-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.blog-read-more {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: gap var(--transition-fast);
+}
+
+.blog-card:hover .blog-read-more {
+  gap: 1rem;
+}
+
+/* Modal Styles */
+.blog-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.blog-modal-content {
+  background: var(--color-bg);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: var(--border-radius-md);
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar for modal */
+.blog-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+.blog-modal-content::-webkit-scrollbar-track {
+  background: var(--color-bg-alt);
+  border-radius: 0 8px 8px 0;
+}
+.blog-modal-content::-webkit-scrollbar-thumb {
+  background: var(--color-lavender);
+  border-radius: 8px;
+}
+.blog-modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-light-teal);
+}
+
+.blog-modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(0,0,0,0.05);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: all var(--transition-fast);
+  z-index: 10;
+}
+
+.blog-modal-close:hover {
+  background: rgba(0,0,0,0.1);
+  transform: rotate(90deg);
+}
+
+.blog-modal-header {
+  padding: 3rem 3rem 2rem;
+  background: var(--color-bg-alt);
+}
+
+.blog-modal-header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+  padding-right: 2rem;
+  line-height: 1.2;
+}
+
+.blog-meta {
+  display: flex;
+  gap: 1.5rem;
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  font-weight: 500;
+  flex-wrap: wrap;
+}
+
+.blog-author {
+  color: var(--color-blue);
+  font-weight: 600;
+}
+
+.blog-modal-body {
+  padding: 3rem;
+}
+
+.blog-modal-body p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+}
+
+.blog-content-heading {
+  font-size: 1.5rem;
+  color: var(--color-blue);
+  margin-bottom: 1rem;
+  font-family: var(--font-heading);
+}
+
+.blog-list {
+  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.blog-list li {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+  position: relative;
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
+@media (max-width: 768px) {
+  .blog-modal-overlay {
+    padding: 1rem;
+  }
+  
+  .blog-modal-header {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+  
+  .blog-modal-body {
+    padding: 1.5rem;
+  }
+  
+  .blog-modal-close {
+    top: 1rem;
+    right: 1rem;
+  }
+}

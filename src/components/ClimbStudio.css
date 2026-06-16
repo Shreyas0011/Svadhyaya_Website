@@ -1,0 +1,340 @@
+.climb-studio {
+  background-color: transparent;
+}
+
+.studio-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+  .studio-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  .studio-header-text {
+    max-width: 50%;
+  }
+}
+
+.space-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .space-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .space-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.space-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.space-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.space-card.span-2 {
+  grid-column: span 1;
+}
+
+@media (min-width: 1024px) {
+  .space-card.span-2 {
+    grid-column: span 2;
+  }
+}
+
+.space-image-wrapper {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.space-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.space-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.space-card:hover .space-image {
+  transform: scale(1.05);
+}
+
+.space-card:hover .space-overlay {
+  opacity: 1;
+  background: linear-gradient(to top, var(--hover-color) 0%, transparent 100%);
+}
+
+.space-content {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-grow: 1;
+}
+
+.space-text {
+  max-width: 80%;
+}
+
+.space-text h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+.space-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--color-bg-alt);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: all var(--transition-fast);
+}
+
+.space-card:hover .space-btn {
+  background-color: var(--hover-bg);
+  color: white;
+  transform: rotate(45deg);
+}
+
+/* Modal Styles for Climb Studio */
+.studio-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.studio-modal-content {
+  background: var(--color-bg);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: var(--border-radius-md);
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.studio-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+.studio-modal-content::-webkit-scrollbar-track {
+  background: var(--color-bg-alt);
+  border-radius: 0 8px 8px 0;
+}
+.studio-modal-content::-webkit-scrollbar-thumb {
+  background: var(--color-lavender);
+  border-radius: 8px;
+}
+.studio-modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-light-teal);
+}
+
+.studio-modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(0,0,0,0.05);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: all var(--transition-fast);
+  z-index: 10;
+}
+
+.studio-modal-close:hover {
+  background: rgba(0,0,0,0.1);
+  transform: rotate(90deg);
+}
+
+.studio-modal-header {
+  padding: 3rem 3rem 2rem;
+  background: var(--color-bg-alt);
+}
+
+.studio-modal-header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+.studio-modal-body {
+  padding: 3rem;
+}
+
+.studio-modal-body p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+}
+
+.studio-modal-image-placeholder {
+  background-color: var(--color-bg-alt);
+  padding: 3rem 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border-radius: var(--border-radius-md);
+  border: 1px dashed rgba(0,0,0,0.1);
+}
+
+.studio-modal-image-placeholder span {
+  color: var(--color-text-light);
+  font-family: var(--font-heading);
+  letter-spacing: 1px;
+}
+
+.studio-content-heading {
+  font-size: 1.8rem;
+  color: var(--color-blue);
+  margin-bottom: 1.5rem;
+  font-family: var(--font-heading);
+}
+
+.studio-list {
+  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.studio-list li {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+  position: relative;
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
+.studio-coming-soon {
+  font-style: italic;
+  color: var(--color-text-light) !important;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .studio-modal-overlay {
+    padding: 1rem;
+  }
+  
+  .studio-modal-header {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+  
+  .studio-modal-body {
+    padding: 1.5rem;
+  }
+  
+  .studio-modal-close {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+/* Benefit Cards */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.benefit-card {
+  background: var(--color-bg-alt);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.benefit-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.benefit-card h4 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--color-blue);
+  margin-bottom: 0.5rem;
+}
+
+.benefit-card p {
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0 !important;
+  color: var(--color-text-light) !important;
+}
