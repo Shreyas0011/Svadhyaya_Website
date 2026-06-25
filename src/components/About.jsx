@@ -7,20 +7,32 @@ const About = () => {
     <section id="about" className="about section-padding">
       <div className="container">
         <div className="about-grid">
-          <motion.div 
-            className="about-image-wrapper spiral-mask"
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-          >
-            <div className="about-image-placeholder" style={{ backgroundColor: 'var(--color-sand)', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
-              <span style={{ fontFamily: 'var(--font-heading)', color: 'rgba(0,0,0,0.1)', fontSize: '1.5rem', textTransform: 'uppercase' }}>Placeholder</span>
-            </div>
-            <div className="about-badge" style={{ backgroundColor: 'var(--color-yellow)', color: 'var(--color-blue)' }}>
-              <span>Est. 2026</span>
-            </div>
-          </motion.div>
+          <div className="about-image-container" style={{ position: 'relative' }}>
+            <motion.div 
+              className="about-image-wrapper"
+              initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+            >
+              <img 
+                src="/images/about_image.png" 
+                alt="Svadhyaya Community Space" 
+                className="about-image" 
+              />
+            </motion.div>
+            
+            <motion.div 
+              className="about-badge" 
+              style={{ backgroundColor: 'var(--color-yellow)', color: 'var(--color-blue)', zIndex: 10 }}
+              initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.8, type: 'spring' }}
+            >
+              <span>Est. 2023</span>
+            </motion.div>
+          </div>
           
           <motion.div 
             className="about-content"
@@ -33,21 +45,13 @@ const About = () => {
             <h2 className="section-title">A Journey to Self</h2>
             
             <p className="about-lead">
-              Svadhyaya means "Journey to Self." What began as a space for self-discovery has grown into a vibrant community where people of all ages come together to learn, explore, create, and connect.
+              Svadhyaya means "Journey to Self." What began as a space for self-discovery has grown into a vibrant community where people of all ages come together to explore, create, and connect. In a world that often measures success through achievements and possessions, we believe that true fulfillment comes from understanding ourselves more deeply-our values, passions, strengths, experiences, and purpose.
             </p>
             
             <p>
-              In a world that often measures success through achievements and possessions, we believe that true fulfillment comes from understanding ourselves more deeply-our values, passions, strengths, experiences, and purpose. Through reflection, meaningful conversations, and shared experiences, we create opportunities for individuals to reconnect with themselves and the world around them.
+              Today, Svadhyaya is more than a learning space - it is a community space that brings together parents, children, young adults, educators, artists, and lifelong learners. It is a place where local and sustainable art forms, movement practices, music, storytelling, and mindful living can be experienced in their true essence.
             </p>
             
-            <p>
-              The Climb Studio was born from a simple realization: people were seeking spaces that nurtured authentic growth, conscious living, creativity, and meaningful human connection. They were looking for environments where curiosity is encouraged, exploration is celebrated, and learning extends beyond traditional classrooms.
-            </p>
-
-            <p>
-              Today, Svadhyaya is more than a learning center-it is a community space that brings together parents, children, young adults, educators, artists, and lifelong learners. It is a place where local and sustainable art forms, movement practices, music, storytelling, and mindful living can be experienced in their true essence.
-            </p>
-
             <p>
               We believe that learning happens not only through structured programs but also through conversations, collaboration, play, creativity, and shared experiences. Whether you come here to learn a new skill, explore your interests, connect with like-minded people, or simply spend time in an inspiring environment, you become a part of a community that values growth, authenticity, and conscious living.
             </p>
@@ -60,9 +64,16 @@ const About = () => {
       </div>
       
       {/* Organic divider */}
-      <div className="organic-divider-bottom">
+      <div className="organic-divider-bottom" style={{ pointerEvents: 'none' }}>
         <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <path d="M0,60 C320,120 420,0 720,60 C1020,120 1120,0 1440,60 L1440,120 L0,120 Z" fill="var(--color-bg-alt)"></path>
+          <path 
+            d="M0,60 C320,120 420,0 720,60 C1020,120 1120,0 1440,60" 
+            fill="none" 
+            stroke="var(--color-teal)" 
+            strokeWidth="3" 
+            strokeOpacity="0.12"
+            strokeLinecap="round"
+          ></path>
         </svg>
       </div>
     </section>

@@ -8,7 +8,7 @@ const spaces = [
   {
     id: 'climbing',
     title: 'Climbing',
-    image: '',
+    image: '/images/climbing.png',
     description: 'Indoor rock climbing programs designed for both kids and adults to build strength and confidence.',
     span: 2,
     color: 'var(--color-orange)',
@@ -17,8 +17,8 @@ const spaces = [
         <p>Ancient civilisations often used bouldering techniques to access difficult-to-reach areas for hunting and gathering.</p>
         <p>From there on Bouldering has evolved into a free form climbing that is performed on small rock formations or artificial rock with minimal use of equipment such as climbing shoes to help secure footholds, chalk to keep their hands dry and to provide a firmer grip, and bouldering mats to prevent injuries from falls. The sport gained popularity in the late 19th and early 20th centuries, especially in places like Fontainebleau in France and the Peak District in England.</p>
         
-        <div className="studio-modal-image-placeholder">
-          <span>[ Image Placeholder: IMG_4376.JPEG ]</span>
+        <div className="studio-modal-image-wrapper">
+          <img src="/images/climbing_user.jpg" alt="Bouldering Wall at Svadhyaya Climb Studio" className="studio-modal-image" />
         </div>
 
         <p>The challenge is to climb short but challenging bouldering routes or sequences of moves using balance, technique, strength, and problem-solving abilities.</p>
@@ -65,7 +65,7 @@ const spaces = [
   {
     id: 'kalaripayattu',
     title: 'Kalaripayattu',
-    image: '',
+    image: '/images/learning_mindful.png',
     description: 'Traditional Indian martial art focusing on physical flexibility, mental focus, and discipline for all ages.',
     span: 1,
     color: 'var(--color-teal)',
@@ -152,7 +152,7 @@ const spaces = [
   {
     id: 'bharatanatyam',
     title: 'Bharatanatyam',
-    image: '',
+    image: '/images/learning_art.png',
     description: 'Classical Indian dance forms emphasizing storytelling, rhythm, and expressive movement.',
     span: 1,
     color: 'var(--color-green)',
@@ -236,9 +236,9 @@ const spaces = [
   {
     id: 'mrudangam',
     title: 'Mrudangam',
-    image: '',
+    image: '/images/learning_music.png',
     description: 'Percussion classes focusing on the rich rhythmic traditions of Carnatic music for beginners and advanced students.',
-    span: 2,
+    span: 1,
     color: 'var(--color-blue)',
     content: (
       <>
@@ -344,6 +344,7 @@ const ClimbStudio = () => {
     <>
       <section id="climb-studio" className="climb-studio section-padding">
         <div className="container">
+          {/* Section 1: The Climb Studio */}
           <div className="studio-header">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -362,13 +363,72 @@ const ClimbStudio = () => {
               className="studio-header-text"
             >
               <p>
-                Discover an array of transformative experiences tailored to nurture different aspects of your journey. Each space is guided by experienced facilitators dedicated to holding a safe container for your exploration.
+                Discover our indoor bouldering space designed to challenge and strengthen both body and mind.
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="space-grid" style={{ marginBottom: '5rem' }}>
+            {spaces.filter(s => s.id === 'climbing').map((space, index) => (
+              <motion.div 
+                key={space.id} 
+                className="space-card span-3"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                onClick={() => openSpaceModal(space)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="space-image-wrapper" style={{ backgroundColor: space.color }}>
+                  {space.image ? (
+                    <img src={space.image} alt={space.title} className="space-image" />
+                  ) : (
+                    <div className="placeholder-text" style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: 0.5, textTransform: 'uppercase', fontFamily: 'var(--font-heading)' }}>
+                      Placeholder
+                    </div>
+                  )}
+                  <div className="space-overlay" style={{ '--hover-color': space.color }}></div>
+                </div>
+                <div className="space-content">
+                  <div className="space-text">
+                    <h3>{space.title}</h3>
+                    <p>{space.description}</p>
+                  </div>
+                  <button className="space-btn" style={{ '--hover-bg': space.color }}>
+                    <ArrowUpRight size={24} />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Section 2: Svadhyaya */}
+          <div className="studio-header">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h4 className="section-subtitle">Traditional Arts & Practices</h4>
+              <h2 className="section-title">Svadhyaya</h2>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="studio-header-text"
+            >
+              <p>
+                Immerse yourself in our holistic movement and cultural practices including Kalaripayattu, Bharatanatyam, and Mrudangam.
               </p>
             </motion.div>
           </div>
 
           <div className="space-grid">
-            {spaces.map((space, index) => (
+            {spaces.filter(s => s.id !== 'climbing').map((space, index) => (
               <motion.div 
                 key={space.id} 
                 className={`space-card span-${space.span}`}

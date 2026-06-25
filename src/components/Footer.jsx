@@ -5,7 +5,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
@@ -39,7 +39,7 @@ const Footer = () => {
             <ul>
               <li>
                 <MapPin size={18} />
-                <span>108 Mindfulness Way, Sanctuary Valley, SV 90210</span>
+                <span>No. 27, 47th A Cross, 5th Block, Jayanagar, Bangalore – 560041</span>
               </li>
               <li>
                 <Mail size={18} />

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Pagination, Parallax } from 'swiper/modules';
-import { motion } from 'framer-motion';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
@@ -57,24 +56,6 @@ const Hero = () => {
               data-swiper-parallax="-20%"
             ></div>
             <div className="slide-overlay-premium"></div>
-            
-            <div className="hero-content">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-                className="hero-text-wrapper"
-              >
-                <h1 className="hero-title">{slide.title}</h1>
-                <p className="hero-subtitle-text">{slide.subtitle}</p>
-                
-                <div className="hero-ctas">
-                  <a href="#climb-studio" className="btn btn-primary hero-btn-main">Explore Spaces</a>
-                  <a href="#about" className="btn btn-outline hero-btn-outline">Our Story</a>
-                </div>
-              </motion.div>
-            </div>
           </SwiperSlide>
         ))}
       </Swiper>

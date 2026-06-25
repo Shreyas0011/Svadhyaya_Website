@@ -159,38 +159,4 @@ html.lenis { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis.lenis-scrolling iframe { pointer-events: none; }
 
-/* Premium Ambient Theme Aura */
-body::before, body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.4;
-  filter: blur(120px);
-}
-
-body::before {
-  background: radial-gradient(circle at 30% 30%, var(--color-light-teal) 0%, transparent 60%);
-  animation: floatAura1 20s ease-in-out infinite alternate;
-}
-
-body::after {
-  background: radial-gradient(circle at 70% 70%, var(--color-sand) 0%, transparent 60%);
-  animation: floatAura2 25s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes floatAura1 {
-  0% { transform: translate(-10%, -10%) scale(1); }
-  50% { transform: translate(20%, 10%) scale(1.2); }
-  100% { transform: translate(-10%, 20%) scale(0.9); }
-}
-
-@keyframes floatAura2 {
-  0% { transform: translate(10%, 10%) scale(1); }
-  50% { transform: translate(-20%, -10%) scale(1.1); }
-  100% { transform: translate(10%, -20%) scale(0.9); }
-}
+/* Ambient backgrounds managed by BackgroundDecorations component */

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar as CalendarIcon, Clock, User, Mail, Phone, ChevronRight, ChevronLeft, CheckCircle2, ShieldAlert, Award, Compass } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, User, Mail, Phone, ChevronRight, ChevronLeft, CheckCircle2, ShieldAlert, Award, Compass, ZoomIn, Download, X } from 'lucide-react';
 import './Booking.css';
+import './Schedule.css';
 
 const sessionsData = {
   climbing_adults: {
@@ -22,7 +23,8 @@ const sessionsData = {
       6: ['07:00 AM']  // Sat
     },
     packages: [
-      { id: 'single', title: 'Single Session', price: 500, description: 'Single entry ticket' }
+      { id: 'monthly', title: 'Monthly Membership', price: 5000, description: 'Regular access for 1 Month' },
+      { id: 'walkin', title: 'Walk-In Session', price: 750, description: 'Single entry walk-in' }
     ]
   },
   climbing_kids: {
@@ -39,7 +41,8 @@ const sessionsData = {
       6: ['10:00 AM']  // Sat
     },
     packages: [
-      { id: 'single', title: 'Single Session', price: 500, description: 'Single entry ticket for kids' }
+      { id: 'monthly', title: 'Monthly Membership', price: 4000, description: 'Regular access for 1 Month' },
+      { id: 'walkin', title: 'Walk-In Session', price: 750, description: 'Single entry walk-in' }
     ]
   },
   kalaripayattu_adults: {
@@ -59,8 +62,7 @@ const sessionsData = {
       6: ['07:30 PM']              // Sat
     },
     packages: [
-      { id: 'monthly', title: 'Monthly Membership', price: 4000, description: 'Access for 1 Month' },
-      { id: 'threemonths', title: '3-Month Membership', price: 10500, description: 'Access for 3 Months' }
+      { id: 'monthly', title: 'Monthly Membership', price: 4500, description: 'Access for 1 Month' }
     ]
   },
   kalaripayattu_kids: {
@@ -77,24 +79,7 @@ const sessionsData = {
       6: ['06:00 PM']  // Sat
     },
     packages: [
-      { id: 'monthly', title: 'Monthly Membership', price: 4000, description: 'Access for 1 Month' },
-      { id: 'threemonths', title: '3-Month Membership', price: 10500, description: 'Access for 3 Months' }
-    ]
-  },
-  integrated_arts: {
-    id: 'integrated_arts',
-    title: 'Integrated Arts (Kids)',
-    duration: '1 Hour',
-    color: 'rgba(186, 85, 211, 1)',
-    bgLight: 'rgba(186, 85, 211, 0.08)',
-    description: 'Creative arts integration program combining visual arts, storytelling, and rhythm for kids.',
-    days: [2, 4], // Tue, Thu
-    slots: {
-      2: ['05:00 PM'], // Tue
-      4: ['05:00 PM']  // Thu
-    },
-    packages: [
-      { id: 'single', title: 'Single Session', price: 350, description: 'Single entry creative session' }
+      { id: 'monthly', title: 'Monthly Membership', price: 4500, description: 'Access for 1 Month' }
     ]
   },
   bharatanatyam: {
@@ -110,7 +95,7 @@ const sessionsData = {
       0: ['07:30 AM']  // Sun
     },
     packages: [
-      { id: 'single', title: 'Single Session', price: 350, description: 'Single entry ticket' }
+      { id: 'monthly', title: 'Monthly Course', price: 2500, description: 'Access for 1 Month' }
     ]
   },
   mrudangam: {
@@ -126,12 +111,67 @@ const sessionsData = {
       5: ['03:30 PM']  // Fri
     },
     packages: [
-      { id: 'single', title: 'Single Session', price: 450, description: 'Single entry ticket' }
+      { id: 'monthly', title: 'Monthly Course', price: 3000, description: 'Access for 1 Month' }
     ]
   }
 };
 
+const schedules = [
+  {
+    id: 'climbing',
+    title: 'The Climb Studio',
+    subtitle: 'Bouldering (Adults & Kids)',
+    image: '/images/class_schedule_1.jpg',
+    color: 'var(--color-orange)',
+    accentBg: 'rgba(242, 101, 34, 0.1)',
+    quickLinks: [
+      { label: 'Adults Climbing', sessionKey: 'climbing_adults' },
+      { label: 'Kids Climbing', sessionKey: 'climbing_kids' },
+      { label: 'Walk-In Entry', sessionKey: 'climbing_adults', packageId: 'walkin' }
+    ]
+  },
+  {
+    id: 'svadhyaya',
+    title: 'Svadhyaya Space',
+    subtitle: 'Kalari, Arts, Music & Dance',
+    image: '/images/class_schedule_2.jpg',
+    color: 'var(--color-teal)',
+    accentBg: 'rgba(66, 193, 199, 0.1)',
+    quickLinks: [
+      { label: 'Kalaripayattu', sessionKey: 'kalaripayattu_adults' },
+      { label: 'Bharatanatyam', sessionKey: 'bharatanatyam' },
+      { label: 'Mrudangam', sessionKey: 'mrudangam' }
+    ]
+  }
+];
+
 const Booking = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const { hash } = useLocation();
+
+  // Close lightbox on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Scroll to hash anchor on load
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.substring(1));
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [hash]);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   
@@ -148,6 +188,29 @@ const Booking = () => {
     const sessionKey = resolvedSession && sessionsData[resolvedSession] ? resolvedSession : 'climbing_adults';
     return sessionsData[sessionKey].packages[0].id;
   });
+
+  const selectSessionAndScroll = (sessionKey, packageId = 'monthly') => {
+    if (sessionsData[sessionKey]) {
+      setSelectedSession(sessionKey);
+      
+      const foundPkg = sessionsData[sessionKey].packages.find(p => p.id === packageId);
+      if (foundPkg) {
+        setSelectedPackageId(packageId);
+      } else {
+        setSelectedPackageId(sessionsData[sessionKey].packages[0].id);
+      }
+      
+      // Clear date and slot selection to let them select new ones
+      setSelectedDate(null);
+      setSelectedSlot('');
+      
+      // Scroll to booking form smoothly
+      const element = document.getElementById('booking-form-start');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -272,11 +335,113 @@ const Booking = () => {
 
   return (
     <div className="booking-page container">
-      <div className="booking-title text-center">
-        <h4 className="section-subtitle">Svadhyaya Bookings</h4>
-        <h2 className="section-title">Reserve Your Space</h2>
+      {/* 1. Main Page Heading */}
+      <div className="booking-title text-center" style={{ marginBottom: '3.5rem' }}>
+        <h4 className="section-subtitle">TIMETABLE & RESERVATIONS</h4>
+        <h2 className="section-title">Class Schedule & Booking</h2>
         <p className="subtitle-desc">
-          Begin your journey of self-discovery. Select a session, pick your slot, and lock in your reservation.
+          Explore our weekly class schedules below, then select your program to reserve your membership or walk-in slot.
+        </p>
+      </div>
+
+      {/* 2. Embedded Class Schedule Section */}
+      <div id="schedule" className="booking-schedule-section" style={{ marginBottom: '5rem' }}>
+        <div className="schedule-cards-grid">
+          {schedules.map((sch, idx) => (
+            <motion.div 
+              key={sch.id}
+              className="schedule-img-card"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 + idx * 0.1 }}
+            >
+              <div className="schedule-card-header">
+                <div className="schedule-badge" style={{ backgroundColor: sch.color }}>
+                  {sch.title}
+                </div>
+                <h3 style={{ fontSize: '1.4rem', color: 'var(--color-text)', fontFamily: 'var(--font-heading)' }}>{sch.subtitle}</h3>
+              </div>
+
+              <div 
+                className="schedule-img-preview-container"
+                onClick={() => setSelectedImage(sch.image)}
+              >
+                <img 
+                  src={sch.image} 
+                  alt={sch.subtitle} 
+                  className="schedule-preview-img"
+                />
+                <div className="schedule-img-overlay">
+                  <ZoomIn size={28} className="zoom-icon" />
+                  <span>Click to Expand</span>
+                </div>
+              </div>
+
+              <div className="schedule-card-actions" style={{ display: 'flex', gap: '0.8rem' }}>
+                <button 
+                  className="btn btn-outline" 
+                  onClick={() => setSelectedImage(sch.image)}
+                  style={{ color: sch.color, borderColor: sch.color, flex: 1 }}
+                >
+                  <ZoomIn size={16} /> Expand
+                </button>
+                
+                <a 
+                  href={sch.image} 
+                  download={`${sch.id}_class_schedule.jpg`}
+                  className="btn btn-primary"
+                  style={{ backgroundColor: sch.color, borderColor: sch.color, color: 'white', display: 'inline-flex', alignItems: 'center', gap: '8px', flex: 1 }}
+                >
+                  <Download size={16} /> Download
+                </a>
+              </div>
+
+              {/* Quick Book Actions */}
+              <div className="schedule-quick-book-area" style={{ marginTop: '1.2rem', paddingTop: '1.2rem', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-light)', textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: '0.6rem', fontWeight: 'bold' }}>Quick Book:</span>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  {sch.quickLinks.map((link) => (
+                    <button
+                      key={link.sessionKey + (link.packageId || '')}
+                      className="btn btn-outline"
+                      onClick={() => selectSessionAndScroll(link.sessionKey, link.packageId)}
+                      style={{ 
+                        padding: '0.4rem 0.8rem', 
+                        fontSize: '0.85rem', 
+                        borderColor: 'rgba(0,0,0,0.15)',
+                        color: 'var(--color-text)',
+                        backgroundColor: 'rgba(0,0,0,0.02)',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = sch.color;
+                        e.currentTarget.style.color = sch.color;
+                        e.currentTarget.style.backgroundColor = sch.accentBg;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = 'rgba(0,0,0,0.15)';
+                        e.currentTarget.style.color = 'var(--color-text)';
+                        e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.02)';
+                      }}
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* 3. Booking Section Heading */}
+      <div id="booking-form-start" className="booking-title text-center" style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '4rem', marginBottom: '3rem' }}>
+        <h4 className="section-subtitle">SESSION RESERVATION</h4>
+        <h2 className="section-title">Book Your Session</h2>
+        <p className="subtitle-desc">
+          Select your preferred program, confirm your pricing details, and choose your slot.
         </p>
       </div>
 
@@ -407,7 +572,7 @@ const Booking = () => {
                           );
                         })}
                       </div>
-
+                      
                       <div className="calendar-legend">
                         <span className="legend-item"><span className="legend-dot available"></span> Available</span>
                         <span className="legend-item"><span className="legend-dot selected"></span> Selected</span>
@@ -415,45 +580,46 @@ const Booking = () => {
                       </div>
                     </div>
 
-                    {/* Time Slot Picker */}
-                    <div className="slots-box">
-                      <h3>Available Time Slots</h3>
+                    {/* Slots Input */}
+                    <div className="form-group" style={{ flex: 1 }}>
+                      <label>Available Time Slots</label>
                       {selectedDate ? (
-                        getAvailableSlots(selectedDate).length > 0 ? (
-                          <div className="slots-grid">
-                            {getAvailableSlots(selectedDate).map((slot) => (
-                              <button
-                                key={slot}
-                                className={`slot-btn ${selectedSlot === slot ? 'selected' : ''}`}
-                                onClick={() => setSelectedSlot(slot)}
-                                style={selectedSlot === slot ? { backgroundColor: session.color, borderColor: session.color, color: 'white' } : {}}
-                              >
-                                <Clock size={16} />
-                                {slot}
-                              </button>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="no-slots-fallback text-center">
-                            <ShieldAlert size={40} style={{ color: 'var(--color-orange)', marginBottom: '1rem' }} />
-                            <p>No available slots found for this day. Kalaripayattu and specific sessions operate on designated schedule days.</p>
-                          </div>
-                        )
+                        <div className="slots-picker-area">
+                          {getAvailableSlots(selectedDate).length > 0 ? (
+                            <div className="slots-grid">
+                              {getAvailableSlots(selectedDate).map((slot) => (
+                                <button 
+                                  key={slot}
+                                  className={`slot-btn ${selectedSlot === slot ? 'active' : ''}`}
+                                  onClick={() => setSelectedSlot(slot)}
+                                  style={{ '--active-bg': session.color }}
+                                >
+                                  {slot}
+                                </button>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="no-slots-box">
+                              <ShieldAlert size={28} style={{ color: 'var(--color-orange)', marginBottom: '0.5rem' }} />
+                              <p>No slots scheduled for this day.</p>
+                            </div>
+                          )}
+                        </div>
                       ) : (
-                        <div className="no-date-selected text-center">
-                          <CalendarIcon size={40} style={{ color: 'var(--color-lavender)', marginBottom: '1rem' }} />
+                        <div className="slots-placeholder-box">
+                          <CalendarIcon size={32} style={{ opacity: 0.3, marginBottom: '0.8rem' }} />
                           <p>Please select a date on the calendar to view available time slots.</p>
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <div className="booking-footer">
-                    <button
-                      className="btn btn-primary next-step-btn"
+                  <div className="step-actions" style={{ justifyContent: 'flex-end', marginTop: '2rem' }}>
+                    <button 
+                      className="btn btn-primary"
                       disabled={!selectedDate || !selectedSlot}
                       onClick={handleNextStep}
-                      style={(selectedDate && selectedSlot) ? { backgroundColor: session.color, color: 'white' } : {}}
+                      style={{ backgroundColor: session.color, borderColor: session.color, color: 'white' }}
                     >
                       Continue to Info <ChevronRight size={18} />
                     </button>
@@ -461,213 +627,155 @@ const Booking = () => {
                 </motion.div>
               )}
 
-              {bookingStep === 2 && (
-                <motion.div
-                  key="step2"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="info-form-container">
-                    <h3>Contact & Participant Information</h3>
-                    <p className="form-info-text">Please provide your details below to finalize the reservation for {session.title}.</p>
-                    
-                    <form onSubmit={(e) => e.preventDefault()} className="booking-form">
-                      <div className="form-group-row">
-                        <div className="form-group">
-                          <label htmlFor="name"><User size={16} /> Full Name</label>
-                          <input 
-                            type="text" 
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            placeholder="John Doe"
-                            className={formErrors.name ? 'error' : ''}
-                          />
-                          {formErrors.name && <span className="error-text">{formErrors.name}</span>}
-                        </div>
-
-                        <div className="form-group">
-                          <label htmlFor="email"><Mail size={16} /> Email Address</label>
-                          <input 
-                            type="email" 
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            placeholder="john@example.com"
-                            className={formErrors.email ? 'error' : ''}
-                          />
-                          {formErrors.email && <span className="error-text">{formErrors.email}</span>}
-                        </div>
-                      </div>
-
-                      <div className="form-group-row">
-                        <div className="form-group">
-                          <label htmlFor="phone"><Phone size={16} /> Phone Number</label>
-                          <input 
-                            type="tel" 
-                            id="phone"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            placeholder="+91 98765 43210"
-                            className={formErrors.phone ? 'error' : ''}
-                          />
-                          {formErrors.phone && <span className="error-text">{formErrors.phone}</span>}
-                        </div>
-
-                        <div className="form-group">
-                          <label htmlFor="experience"><Award size={16} /> Experience Level</label>
-                          <select 
-                            id="experience"
-                            name="experience"
-                            value={formData.experience}
-                            onChange={handleInputChange}
-                          >
-                            <option value="Beginner">Beginner (First-timer)</option>
-                            <option value="Intermediate">Intermediate (Basic training)</option>
-                            <option value="Advanced">Advanced (Experienced practitioner)</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div className="form-group">
-                        <label htmlFor="notes"><Compass size={16} /> Special Notes / Requests (Optional)</label>
-                        <textarea 
-                          id="notes"
-                          name="notes"
-                          rows="4"
-                          value={formData.notes}
-                          onChange={handleInputChange}
-                          placeholder="Let us know of any medical conditions, safety concerns, or details to prepare for your session..."
-                        ></textarea>
-                      </div>
-                    </form>
-                  </div>
-
-                  <div className="booking-footer step-2-footer">
-                    <button 
-                      className="btn btn-outline back-btn"
-                      onClick={() => setBookingStep(1)}
-                    >
-                      Back to Schedule
-                    </button>
-                    <button
-                      className="btn btn-primary next-step-btn"
-                      onClick={handleNextStep}
-                      style={{ backgroundColor: session.color, color: 'white' }}
-                    >
-                      Confirm Booking <ChevronRight size={18} />
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-
-              {bookingStep === 3 && (
-                <motion.div
-                  key="step3"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="booking-success text-center"
-                >
-                  <div className="success-icon-wrapper" style={{ color: session.color }}>
-                    <CheckCircle2 size={80} />
-                  </div>
-                  <h2>Booking Confirmed!</h2>
-                  <p className="success-message">
-                    Thank you, <strong>{formData.name}</strong>. Your session for <strong>{session.title}</strong> has been successfully booked. A confirmation email with receipt and details has been sent to <strong>{formData.email}</strong>.
-                  </p>
-
-                  <div className="receipt-card" style={{ borderLeft: `6px solid ${session.color}` }}>
-                    <div className="receipt-row">
-                      <span>Session Type:</span>
-                      <strong>{session.title} {selectedPackage.title !== 'Single Session' ? `(${selectedPackage.title})` : ''}</strong>
+            {bookingStep === 2 && (
+              <div className="booking-step-content">
+                <h3 className="step-title">Personal Information</h3>
+                
+                <form onSubmit={(e) => e.preventDefault()} className="booking-info-form">
+                  <div className="form-group-row">
+                    <div className="form-group">
+                      <label htmlFor="name"><User size={16} /> Full Name</label>
+                      <input 
+                        type="text" 
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="John Doe"
+                        className={formErrors.name ? 'error' : ''}
+                      />
+                      {formErrors.name && <span className="error-text">{formErrors.name}</span>}
                     </div>
-                    <div className="receipt-row">
-                      <span>Date:</span>
-                      <strong>{formatDateString(selectedDate)}</strong>
-                    </div>
-                    <div className="receipt-row">
-                      <span>Time:</span>
-                      <strong>{selectedSlot}</strong>
-                    </div>
-                    <div className="receipt-row">
-                      <span>Duration:</span>
-                      <strong>{session.duration}</strong>
-                    </div>
-                    <div className="receipt-row">
-                      <span>Instructor/Coach:</span>
-                      <strong>Svadhyaya Master</strong>
-                    </div>
-                    <div className="receipt-divider"></div>
-                    <div className="receipt-row total">
-                      <span>Total Paid:</span>
-                      <strong style={{ color: session.color }}>₹{selectedPackage.price}</strong>
+
+                    <div className="form-group">
+                      <label htmlFor="email"><Mail size={16} /> Email Address</label>
+                      <input 
+                        type="email" 
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="john@example.com"
+                        className={formErrors.email ? 'error' : ''}
+                      />
+                      {formErrors.email && <span className="error-text">{formErrors.email}</span>}
                     </div>
                   </div>
 
-                  <div className="success-actions">
-                    <button 
-                      className="btn btn-primary"
-                      onClick={() => navigate('/')}
-                      style={{ backgroundColor: session.color, color: 'white' }}
-                    >
-                      Back to Home
-                    </button>
-                    <button 
-                      className="btn btn-outline"
-                      onClick={() => {
-                        // Reset booking flow
-                        setSelectedDate(null);
-                        setSelectedSlot('');
-                        setBookingStep(1);
-                        setFormData({
-                          name: '',
-                          email: '',
-                          phone: '',
-                          experience: 'Beginner',
-                          notes: ''
-                        });
-                      }}
-                    >
-                      Book Another Session
-                    </button>
+                  <div className="form-group-row">
+                    <div className="form-group">
+                      <label htmlFor="phone"><Phone size={16} /> Phone Number</label>
+                      <input 
+                        type="tel" 
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="+91 98765 43210"
+                        className={formErrors.phone ? 'error' : ''}
+                      />
+                      {formErrors.phone && <span className="error-text">{formErrors.phone}</span>}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="experience"><Award size={16} /> Experience Level</label>
+                      <select 
+                        id="experience"
+                        name="experience"
+                        value={formData.experience}
+                        onChange={handleInputChange}
+                      >
+                        <option value="Beginner">Beginner (First-timer)</option>
+                        <option value="Intermediate">Intermediate (Basic training)</option>
+                        <option value="Advanced">Advanced (Experienced practitioner)</option>
+                      </select>
+                    </div>
                   </div>
-                </motion.div>
-              )}
+
+                  <div className="form-group">
+                    <label htmlFor="notes"><Compass size={16} /> Special Notes / Requests (Optional)</label>
+                    <textarea 
+                      id="notes"
+                      name="notes"
+                      value={formData.notes}
+                      onChange={handleInputChange}
+                      placeholder="Share details like physical injuries, specific goals, or questions you have."
+                      rows={4}
+                    />
+                  </div>
+                </form>
+
+                <div className="step-actions" style={{ marginTop: '2rem' }}>
+                  <button 
+                    className="btn btn-outline"
+                    onClick={() => setBookingStep(1)}
+                  >
+                    <ChevronLeft size={18} /> Back
+                  </button>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={handleNextStep}
+                    style={{ backgroundColor: session.color, borderColor: session.color, color: 'white' }}
+                  >
+                    Confirm Booking <ChevronRight size={18} />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {bookingStep === 3 && (
+              <div className="booking-step-content success-step text-center">
+                <CheckCircle2 size={64} style={{ color: 'var(--color-teal)', margin: '0 auto 1.5rem' }} />
+                <h3 className="step-title">Booking Requested!</h3>
+                <p style={{ maxWidth: '500px', margin: '0 auto 1.5rem', color: 'var(--color-text-light)' }}>
+                  Thank you, <strong>{formData.name}</strong>. We have received your booking request for <strong>{session.title}</strong> on <strong>{selectedDate ? formatDateString(selectedDate) : ''}</strong> at <strong>{selectedSlot}</strong>.
+                </p>
+                <div className="success-details-card">
+                  <h4>Request Reference: #SV-{Math.floor(100000 + Math.random() * 900000)}</h4>
+                  <p>A confirmation email with the session details and guidelines has been sent to <strong>{formData.email}</strong>.</p>
+                </div>
+                <div style={{ marginTop: '2rem' }}>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setBookingStep(1);
+                      setSelectedDate(null);
+                      setSelectedSlot('');
+                      setFormData({ name: '', email: '', phone: '', experience: 'Beginner', notes: '' });
+                    }}
+                    style={{ backgroundColor: 'var(--color-teal)', borderColor: 'var(--color-teal)', color: 'white' }}
+                  >
+                    Book Another Session
+                  </button>
+                </div>
+              </div>
+            )}
             </AnimatePresence>
           </div>
 
-          {/* Sidebar Receipt (For Steps 1 & 2) */}
+          {/* Reservation Summary (Only steps 1 & 2) */}
           {bookingStep < 3 && (
-            <div className="booking-card booking-summary-sidebar">
-              <h3>Reservation Summary</h3>
-              <div className="sidebar-session-detail" style={{ backgroundColor: session.bgLight, borderLeft: `4px solid ${session.color}` }}>
-                <h4>{session.title} {selectedPackage.title !== 'Single Session' ? `(${selectedPackage.title})` : ''}</h4>
-                <p>{session.description}</p>
-                <div className="sidebar-pricing">
-                  <span>Price:</span>
-                  <span className="price-tag" style={{ color: session.color }}>₹{selectedPackage.price}</span>
-                </div>
+            <div className="booking-sidebar">
+              <h3 className="sidebar-title">Reservation Summary</h3>
+              
+              <div className="sidebar-session-card" style={{ backgroundColor: session.bgLight, borderLeft: `4px solid ${session.color}` }}>
+                <h4 style={{ color: session.color }}>{session.title}</h4>
+                <p>{selectedPackage.title}</p>
               </div>
 
               <div className="sidebar-receipt-details">
                 <div className="summary-row">
                   <CalendarIcon size={16} />
                   <div>
-                    <span>Selected Date:</span>
-                    <strong>{selectedDate ? formatDateString(selectedDate) : 'Not selected yet'}</strong>
+                    <span>Date:</span>
+                    <strong>{selectedDate ? formatDateString(selectedDate) : 'Not selected'}</strong>
                   </div>
                 </div>
                 <div className="summary-row">
                   <Clock size={16} />
                   <div>
-                    <span>Selected Time:</span>
-                    <strong>{selectedSlot ? selectedSlot : 'Not selected yet'}</strong>
+                    <span>Time:</span>
+                    <strong>{selectedSlot || 'Not selected'}</strong>
                   </div>
                 </div>
                 <div className="summary-row">
@@ -679,8 +787,6 @@ const Booking = () => {
                 </div>
               </div>
 
-              <div className="sidebar-divider"></div>
-
               <div className="sidebar-total">
                 <span>Total Due:</span>
                 <span className="total-amount" style={{ color: session.color }}>₹{selectedPackage.price}</span>
@@ -689,6 +795,52 @@ const Booking = () => {
           )}
         </div>
       </div>
+
+      {/* Lightbox / Modal View */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div 
+            className="schedule-lightbox-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{ zIndex: 3000 }}
+            onClick={() => setSelectedImage(null)}
+          >
+            <button 
+              className="lightbox-close-btn"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Close lightbox"
+            >
+              <X size={28} />
+            </button>
+            <motion.div 
+              className="lightbox-img-wrapper"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={selectedImage} 
+                alt="Class Schedule Expanded View" 
+                className="lightbox-image"
+              />
+              <div className="lightbox-actions">
+                <a 
+                  href={selectedImage} 
+                  download="svadhyaya_class_schedule.jpg"
+                  className="btn btn-primary"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                >
+                  <Download size={18} /> Download High Quality
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -13,6 +13,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const isAboutActive = location.hash === '#about' || (location.pathname === '/' && location.hash === '#about');
+  const isBookingActive = location.pathname.startsWith('/booking');
+  const isCommunityActive = location.hash === '#climb-studio' || (location.pathname === '/' && location.hash === '#climb-studio');
+  const isMoreActive = ['/coach', '/team', '/blogs'].some(path => location.pathname.startsWith(path));
+
   const handleStudioClick = (spaceId) => {
     if (location.pathname !== '/') {
       navigate('/#climb-studio');
@@ -24,6 +29,16 @@ const Navbar = () => {
       window.dispatchEvent(new CustomEvent('openStudioModal', { detail: spaceId }));
     }
     setCommunitySpaceOpen(false);
+    setMobileMenuOpen(false);
+  };
+
+  const handleContactClick = () => {
+    const footer = document.getElementById('contact');
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/#contact');
+    }
     setMobileMenuOpen(false);
   };
 
@@ -44,31 +59,45 @@ const Navbar = () => {
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         {/* Logo */}
-        <Link to="/" className="logo">
-          <img src="/images/logo.png" alt="Svadhyaya" className="logo-image" />
-        </Link>
+        <motion.div 
+          className="logo-wrapper"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 15 }}
+        >
+          <Link to="/" className="logo">
+            <img src="/images/logo.png" alt="Svadhyaya" className="logo-image" />
+          </Link>
+        </motion.div>
 
         {/* Desktop Menu */}
         <div className="desktop-menu">
-          <a href="/#about" className="nav-link">About</a>
-          <Link to="/booking" className="nav-link">Booking Space</Link>
+          <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+            <a href="/#about" className={`nav-link ${isAboutActive ? 'active' : ''}`}>About</a>
+          </motion.div>
+
+          <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+            <Link to="/booking" className={`nav-link ${isBookingActive ? 'active' : ''}`}>Booking Space</Link>
+          </motion.div>
           
           <div 
             className="dropdown-container"
             onMouseEnter={() => setCommunitySpaceOpen(true)}
             onMouseLeave={() => setCommunitySpaceOpen(false)}
           >
-            <a href="/#climb-studio" className="nav-link dropdown-toggle" onClick={(e) => e.preventDefault()}>
-              Community Space <ChevronDown size={16} />
-            </a>
+            <motion.div whileHover={{ y: -2 }}>
+              <a href="/#climb-studio" className={`nav-link dropdown-toggle ${isCommunityActive ? 'active' : ''}`} onClick={(e) => e.preventDefault()}>
+                Community Space <ChevronDown size={14} className={`chevron-icon ${communitySpaceOpen ? 'rotated' : ''}`} />
+              </a>
+            </motion.div>
             <AnimatePresence>
               {communitySpaceOpen && (
                 <motion.div 
-                  className="dropdown-menu community-dropdown"
-                  initial={{ opacity: 0, y: 10, x: "-50%" }}
-                  animate={{ opacity: 1, y: 0, x: "-50%" }}
-                  exit={{ opacity: 0, y: 10, x: "-50%" }}
-                  transition={{ duration: 0.2 }}
+                   className="dropdown-menu community-dropdown"
+                  initial={{ opacity: 0, y: 15, x: "-50%", scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, x: "-50%", scale: 1 }}
+                  exit={{ opacity: 0, y: 15, x: "-50%", scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 >
                   <div className="dropdown-group">
                     <Link to="/#climb-studio" className="dropdown-group-header" onClick={() => setCommunitySpaceOpen(false)}>
@@ -76,6 +105,13 @@ const Navbar = () => {
                     </Link>
                     <div className="dropdown-sub-items">
                       <Link to="/#climb-studio" onClick={() => handleStudioClick('climbing')}>Climbing</Link>
+                    </div>
+                  </div>
+                  <div className="dropdown-group">
+                    <Link to="/#climb-studio" className="dropdown-group-header" onClick={() => setCommunitySpaceOpen(false)}>
+                      Svadhyaya
+                    </Link>
+                    <div className="dropdown-sub-items">
                       <Link to="/#climb-studio" onClick={() => handleStudioClick('kalaripayattu')}>Kalaripayattu</Link>
                       <Link to="/#climb-studio" onClick={() => handleStudioClick('bharatanatyam')}>Bharatanatyam</Link>
                       <Link to="/#climb-studio" onClick={() => handleStudioClick('mrudangam')}>Mrudangam</Link>
@@ -101,37 +137,47 @@ const Navbar = () => {
             onMouseEnter={() => setMoreOpen(true)}
             onMouseLeave={() => setMoreOpen(false)}
           >
-            <a href="#more" className="nav-link dropdown-toggle" onClick={(e) => e.preventDefault()}>
-              More <ChevronDown size={16} />
-            </a>
+            <motion.div whileHover={{ y: -2 }}>
+              <a href="#more" className={`nav-link dropdown-toggle ${isMoreActive ? 'active' : ''}`} onClick={(e) => e.preventDefault()}>
+                More <ChevronDown size={14} className={`chevron-icon ${moreOpen ? 'rotated' : ''}`} />
+              </a>
+            </motion.div>
             <AnimatePresence>
               {moreOpen && (
                 <motion.div 
                   className="dropdown-menu"
-                  initial={{ opacity: 0, y: 10, x: "-50%" }}
-                  animate={{ opacity: 1, y: 0, x: "-50%" }}
-                  exit={{ opacity: 0, y: 10, x: "-50%" }}
-                  transition={{ duration: 0.2 }}
+                  initial={{ opacity: 0, y: 15, x: "-50%", scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, x: "-50%", scale: 1 }}
+                  exit={{ opacity: 0, y: 15, x: "-50%", scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 350, damping: 25 }}
                 >
                   <Link to="/coach" onClick={() => setMoreOpen(false)}>Our Founder</Link>
                   <Link to="/team" onClick={() => setMoreOpen(false)}>The Team</Link>
                   <Link to="/blogs" onClick={() => setMoreOpen(false)}>Blogs</Link>
-                  <Link to="/schedule" onClick={() => setMoreOpen(false)}>Class Schedule</Link>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
           
-          <button className="btn btn-outline nav-contact">Contact Us</button>
+          <motion.button 
+            className="btn btn-outline nav-contact"
+            onClick={handleContactClick}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 450, damping: 20 }}
+          >
+            Contact Us
+          </motion.button>
         </div>
 
         {/* Mobile Toggle */}
-        <button 
+        <motion.button 
           className="mobile-toggle"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          whileTap={{ scale: 0.9 }}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        </motion.button>
       </div>
 
       {/* Mobile Menu */}
@@ -139,9 +185,10 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <motion.div 
             className="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, scale: 0.95, y: -15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -15 }}
+            transition={{ type: "spring", stiffness: 300, damping: 22 }}
           >
             <div className="mobile-menu-content">
               <a href="/#about" onClick={() => setMobileMenuOpen(false)}>About</a>
@@ -156,6 +203,14 @@ const Navbar = () => {
                   </Link>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '1rem', borderLeft: '1px solid rgba(0,0,0,0.05)' }}>
                     <Link to="/#climb-studio" onClick={() => handleStudioClick('climbing')}>Climbing</Link>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.8rem', paddingLeft: '0.5rem' }}>
+                  <Link to="/#climb-studio" style={{ fontWeight: 600, color: 'var(--color-blue)', fontSize: '1.1rem' }} onClick={() => setMobileMenuOpen(false)}>
+                    Svadhyaya
+                  </Link>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '1rem', borderLeft: '1px solid rgba(0,0,0,0.05)' }}>
                     <Link to="/#climb-studio" onClick={() => handleStudioClick('kalaripayattu')}>Kalaripayattu</Link>
                     <Link to="/#climb-studio" onClick={() => handleStudioClick('bharatanatyam')}>Bharatanatyam</Link>
                     <Link to="/#climb-studio" onClick={() => handleStudioClick('mrudangam')}>Mrudangam</Link>
@@ -180,10 +235,15 @@ const Navbar = () => {
                 <Link to="/coach" onClick={() => setMobileMenuOpen(false)}>Our Founder</Link>
                 <Link to="/team" onClick={() => setMobileMenuOpen(false)}>The Team</Link>
                 <Link to="/blogs" onClick={() => setMobileMenuOpen(false)}>Blogs</Link>
-                <Link to="/schedule" onClick={() => setMobileMenuOpen(false)}>Class Schedule</Link>
               </div>
               
-              <button className="btn btn-outline" style={{marginTop: '1rem', color: 'var(--color-blue)', borderColor: 'var(--color-blue)'}}>Contact Us</button>
+              <button 
+                className="btn btn-outline" 
+                onClick={handleContactClick}
+                style={{marginTop: '1rem', color: 'var(--color-blue)', borderColor: 'var(--color-blue)'}}
+              >
+                Contact Us
+              </button>
             </div>
           </motion.div>
         )}

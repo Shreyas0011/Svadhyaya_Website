@@ -1,7 +1,7 @@
 /* Team Page Styling */
 .team-page {
   padding: 140px 0 100px;
-  background-color: var(--color-bg);
+  background-color: transparent;
   min-height: 100vh;
 }
 
@@ -29,10 +29,12 @@
 }
 
 .trainer-card {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--border-radius-md);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.02);
+  box-shadow: 0 10px 30px rgba(46, 49, 146, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   overflow: hidden;
   cursor: pointer;
   transition: all var(--transition-normal);
@@ -42,7 +44,8 @@
 
 .trainer-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 40px rgba(46, 49, 146, 0.08), 0 0 20px rgba(66, 193, 199, 0.12);
+  border-color: rgba(66, 193, 199, 0.4);
 }
 
 .trainer-image-wrapper {
@@ -80,39 +83,21 @@
   opacity: 0.8;
 }
 
-.trainer-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-}
-
-.trainer-overlay span {
-  background-color: white;
-  color: var(--color-text);
-  padding: 0.7rem 1.4rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.trainer-card:hover .trainer-overlay {
-  opacity: 1;
-}
-
 .trainer-info {
   padding: 1.8rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
   flex-grow: 1;
+  gap: 1rem;
+}
+
+.trainer-details-text {
+  flex-grow: 1;
+  max-width: calc(100% - 44px);
+  display: flex;
+  flex-direction: column;
 }
 
 .trainer-info h3 {
@@ -126,7 +111,7 @@
 .trainer-info h4 {
   font-size: 0.95rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
 .trainer-specialty {
@@ -137,24 +122,27 @@
   flex-grow: 1;
 }
 
-.trainer-footer-action {
+.trainer-card-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-bg-alt);
+  border: none;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-text);
-  border-top: 1px solid rgba(0,0,0,0.05);
-  padding-top: 1rem;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-text-light);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
 
-.trainer-footer-action svg {
-  transition: transform var(--transition-fast);
+.trainer-card:hover .trainer-card-btn {
+  background-color: var(--btn-color);
+  color: white;
+  transform: rotate(45deg);
 }
 
-.trainer-card:hover .trainer-footer-action svg {
-  transform: translateX(4px);
-}
 
 /* Modal Styling */
 .trainer-modal-overlay {

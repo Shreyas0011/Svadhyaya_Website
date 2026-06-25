@@ -21,7 +21,7 @@
 
 .cloud-element {
   position: absolute;
-  color: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.05);
   filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
 }
 
@@ -44,14 +44,14 @@
   top: 5%;
   right: 18%;
   width: 140px;
-  color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.03);
   animation: spinSlow 60s linear infinite;
 }
 
 .star-element {
   position: absolute;
   color: var(--color-yellow);
-  opacity: 0.35;
+  opacity: 0.25;
 }
 
 .star-1 {
@@ -75,7 +75,7 @@
 /* Characters and Illustrations */
 .character-element {
   position: absolute;
-  opacity: 0.06;
+  opacity: 0.05;
   color: white;
   transition: opacity 0.3s ease;
 }
@@ -120,13 +120,13 @@
 }
 
 @keyframes pulseStar {
-  0%, 100% { transform: scale(1); opacity: 0.25; }
-  50% { transform: scale(1.2); opacity: 0.55; }
+  0%, 100% { transform: scale(1); opacity: 0.2; }
+  50% { transform: scale(1.2); opacity: 0.45; }
 }
 
 /* Title Area */
 .schedule-title-area {
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
   position: relative;
   z-index: 2;
 }
@@ -139,245 +139,234 @@
 .schedule-title-area .subtitle-desc {
   color: rgba(255, 255, 255, 0.7);
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0.5rem auto 0;
 }
 
-/* Tabs */
-.schedule-tabs-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 3.5rem;
+/* Grid Layout for Schedule Cards */
+.schedule-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
   position: relative;
   z-index: 2;
 }
 
-.schedule-tabs {
-  background-color: rgba(255, 255, 255, 0.05);
+.schedule-img-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 50px;
-  padding: 0.4rem;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.schedule-tab-btn {
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 0.7rem 1.8rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.schedule-tab-btn:hover {
-  color: white;
-}
-
-.schedule-tab-btn.active {
-  background-color: var(--color-teal);
-  color: white;
-  box-shadow: 0 4px 15px rgba(66, 193, 199, 0.25);
-}
-
-/* Notebook Container */
-.notebook-wrapper {
-  max-width: 960px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
-/* Spiral binder rings */
-.notebook-spiral-rings {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 50px;
-  position: absolute;
-  top: -16px;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.spiral-ring {
-  width: 14px;
-  height: 32px;
-  background: linear-gradient(to right, #b5b5b5 0%, #ffffff 45%, #9e9e9e 75%, #737373 100%);
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(0,0,0,0.1);
-}
-
-/* Paper Sheet Layout */
-.notebook-paper {
-  background-color: #ffffff;
-  color: #333333;
-  border-radius: 10px;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
-  padding: 4.5rem 3rem 3.5rem;
-  position: relative;
-}
-
-.paper-margin-line {
-  position: absolute;
-  left: 55px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background-color: rgba(255, 107, 107, 0.45);
-}
-
-/* Notebook Header */
-.notebook-header {
-  padding-left: 40px;
-  border-bottom: 2px dashed rgba(0, 0, 0, 0.08);
-  padding-bottom: 1.5rem;
-  margin-bottom: 2.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.notebook-heading {
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.notebook-date {
-  font-size: 0.95rem;
-  color: var(--color-text-light);
-  font-style: italic;
-  font-weight: 500;
-}
-
-/* Table layout */
-.notebook-schedule-table {
+  border-radius: 16px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  padding-left: 40px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
 }
 
-.table-header-row {
-  display: grid;
-  grid-template-columns: 1.2fr 1.6fr 110px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--color-text-light);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding-bottom: 0.8rem;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+.schedule-img-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-.table-body-row {
-  display: grid;
-  grid-template-columns: 1.2fr 1.6fr 110px;
-  align-items: center;
-  padding: 1.2rem 1.2rem;
-  border-radius: var(--border-radius-sm);
-  background-color: transparent;
-  transition: all var(--transition-fast);
+.schedule-card-header {
+  margin-bottom: 1.5rem;
 }
 
-.table-body-row:hover {
-  transform: translateX(4px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-}
-
-.td-class {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.program-title {
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: var(--color-text);
-}
-
-.program-badge {
+.schedule-badge {
+  display: inline-block;
   font-size: 0.75rem;
   font-weight: 700;
   color: white;
-  padding: 0.25rem 0.7rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 50px;
-  width: fit-content;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.schedule-card-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: white;
+  margin: 0;
+}
+
+/* Interactive Preview Box */
+.schedule-img-preview-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f7f9fa; /* notebook background color match */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  aspect-ratio: 3 / 4;
+  margin-bottom: 1.5rem;
+}
+
+.schedule-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.schedule-img-preview-container:hover .schedule-preview-img {
+  transform: scale(1.03);
+}
+
+.schedule-img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(9, 60, 57, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+}
+
+.schedule-img-overlay span {
+  font-size: 0.95rem;
+  font-weight: 600;
   letter-spacing: 0.02em;
 }
 
-.td-time {
+.schedule-img-preview-container:hover .schedule-img-overlay {
+  opacity: 1;
+}
+
+.zoom-icon {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Actions */
+.schedule-card-actions {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  gap: 1rem;
+  margin-top: auto;
 }
 
-.timing-slot {
+.schedule-card-actions .btn {
+  flex: 1;
+  justify-content: center;
+  font-size: 0.9rem;
+  padding: 0.7rem 1rem;
+}
+
+/* CTA Card at the bottom */
+.schedule-cta-wrapper {
+  margin-top: 5rem;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.schedule-cta-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.schedule-cta-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 0.6rem;
+}
+
+.schedule-cta-card p {
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 500px;
+  margin: 0 auto 1.8rem;
+}
+
+/* Fullscreen Lightbox Modal */
+.schedule-lightbox-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(5, 20, 19, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 2000;
   display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  font-size: 0.95rem;
-  color: var(--color-text);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
-.timing-icon {
-  color: var(--color-text-light);
-  margin-top: 0.15rem;
-}
-
-.timing-text strong {
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-/* Book Button */
-.td-action {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.notebook-book-btn {
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: var(--border-radius-sm);
-  padding: 0.6rem 0.9rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text);
+.lightbox-close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  transition: all var(--transition-fast);
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.notebook-book-btn svg {
-  transition: transform var(--transition-fast);
+.lightbox-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
 }
 
-.notebook-book-btn:hover {
-  background-color: var(--btn-hover-color);
-  border-color: var(--btn-hover-color);
-  color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.lightbox-img-wrapper {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.notebook-book-btn:hover svg {
-  transform: translateX(3px);
+.lightbox-image {
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .schedule-bg-elements {
-    display: none; /* Hide illustrations to avoid clutter on tablet/mobile */
+.lightbox-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 990px) {
+  .schedule-cards-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
   }
 }
 
@@ -385,56 +374,32 @@
   .schedule-page {
     padding: 100px 0 60px;
   }
-
-  .notebook-paper {
-    padding: 3.5rem 1.5rem 2.5rem;
+  
+  .schedule-bg-elements {
+    display: none; /* Hide background illustrations on small mobile devices to avoid overlap */
   }
 
-  .paper-margin-line {
-    left: 25px;
+  .schedule-title-area {
+    margin-bottom: 2rem;
   }
 
-  .notebook-header {
-    padding-left: 20px;
+  .schedule-img-card {
+    padding: 1.5rem;
+  }
+
+  .schedule-card-actions {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.8rem;
   }
 
-  .notebook-heading {
-    font-size: 1.8rem;
+  .schedule-lightbox-backdrop {
+    padding: 1rem;
   }
 
-  .notebook-schedule-table {
-    padding-left: 20px;
-  }
-
-  .table-header-row {
-    display: none; /* Hide headings on small screen for card layout */
-  }
-
-  .table-body-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1.2rem 1rem;
-    border-left-width: 4px !important;
-  }
-
-  .td-action {
-    justify-content: flex-start;
-    margin-top: 0.5rem;
-  }
-
-  .notebook-book-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 0.8rem;
-  }
-
-  .spiral-ring:nth-child(n+7) {
-    display: none; /* Remove half of spiral rings on small screen */
-  }
-  .notebook-spiral-rings {
-    padding: 0 20px;
+  .lightbox-close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
   }
 }

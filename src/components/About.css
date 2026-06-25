@@ -26,7 +26,7 @@
 .about-image {
   width: 100%;
   height: auto;
-  aspect-ratio: 4/5;
+  aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: var(--border-radius-lg);
   transform: scale(1.05);

@@ -17,8 +17,16 @@ const faqs = [
     answer: "You can easily book a session by clicking the 'Book Now' button in our navigation menu, or by reaching out to us directly via the 'Contact Us' page."
   },
   {
-    question: "What should I wear to the Climb Studio?",
-    answer: "We recommend comfortable, breathable athletic wear for Climbing and Kalaripayattu. For Bharatanatyam and Mrudangam, traditional or comfortable loose clothing is ideal. Specific guidelines will be provided upon registration."
+    question: "What should I wear for the sessions?",
+    answer: "We recommend wearing comfortable, breathable clothing that allows for easy movement. For movement and physical sessions, athletic wear is best, while loose-fitting or traditional clothing is ideal for arts and music programs. Specific guidelines will be shared upon registration."
+  },
+  {
+    question: "What is your pricing and fee structure?",
+    answer: "We offer both monthly and quarterly fee structures. Enrolling in our Quarterly Fee Structure provides a discounted rate compared to the monthly membership. Walk-in slots are also available for specific activities like climbing. You can view standard monthly prices on the booking form or contact us for detailed quarterly packages."
+  },
+  {
+    question: "What is the policy for missed sessions?",
+    answer: "If a learner misses a scheduled session, refunds are not provided; however, you are welcome to attend another active ongoing session of the same program as a make-up class. If Svadhyaya cancels or misses a session, we will either compensate the fee in your next cycle or schedule an extra session."
   }
 ];
 

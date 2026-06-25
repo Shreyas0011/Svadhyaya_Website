@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import Booking from './components/Booking';
 import Schedule from './components/Schedule';
 import Team from './components/Team';
+import BackgroundDecorations from './components/BackgroundDecorations';
 
 const Home = () => (
   <main>
@@ -70,13 +71,14 @@ function App() {
 
   return (
     <>
+      <BackgroundDecorations />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/coach" element={<CoachPage />} />
         <Route path="/blogs" element={<BlogsPage />} />
         <Route path="/booking" element={<Booking />} />
-        <Route path="/schedule" element={<Schedule />} />
+        <Route path="/schedule" element={<Navigate to="/booking#schedule" replace />} />
         <Route path="/team" element={<Team />} />
       </Routes>
       <Footer />

@@ -1,0 +1,200 @@
+.bg-decorations-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+/* Subtle dot matrix pattern overlay */
+.bg-dot-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  background-image: radial-gradient(var(--color-blue) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+}
+
+/* Ambient lava-lamp style organic blobs */
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.blob-1 {
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, var(--color-teal) 0%, transparent 70%);
+  animation: float-blob-slow 28s infinite alternate ease-in-out;
+}
+
+.blob-2 {
+  top: 40%;
+  right: -10%;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, var(--color-orange) 0%, transparent 70%);
+  animation: float-blob-reverse 35s infinite alternate ease-in-out;
+}
+
+.blob-3 {
+  bottom: -15%;
+  left: 15%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, var(--color-yellow) 0%, transparent 70%);
+  animation: float-blob-slow 24s infinite alternate-reverse ease-in-out;
+}
+
+.blob-4 {
+  top: 20%;
+  left: 45%;
+  width: 30vw;
+  height: 30vw;
+  background: radial-gradient(circle, var(--color-green) 0%, transparent 70%);
+  opacity: 0.1;
+  animation: float-blob-mid 30s infinite alternate ease-in-out;
+}
+
+/* Decorative SVG vector styles */
+.vector-shape {
+  position: absolute;
+  pointer-events: none;
+}
+
+.shape-spiral {
+  top: 15%;
+  left: -5%;
+  width: 300px;
+  height: 300px;
+  transform: rotate(-15deg);
+  animation: float-shape 12s infinite alternate ease-in-out;
+}
+
+.shape-arches {
+  top: 45%;
+  right: 2%;
+  width: 180px;
+  height: 360px;
+  animation: float-shape-reverse 15s infinite alternate ease-in-out;
+}
+
+.shape-circles {
+  bottom: 12%;
+  left: 4%;
+  width: 250px;
+  height: 250px;
+  animation: float-shape 16s infinite alternate-reverse ease-in-out;
+}
+
+.shape-waves {
+  top: 75%;
+  right: 15%;
+  width: 350px;
+  height: 180px;
+  animation: float-shape-waves 18s infinite alternate ease-in-out;
+}
+
+/* Keyframes for smooth animations */
+@keyframes float-blob-slow {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6vw, -4vh) scale(1.1);
+  }
+  100% {
+    transform: translate(-3vw, 5vh) scale(0.9);
+  }
+}
+
+@keyframes float-blob-reverse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-5vw, 6vh) scale(0.95);
+  }
+  100% {
+    transform: translate(4vw, -5vh) scale(1.05);
+  }
+}
+
+@keyframes float-blob-mid {
+  0% {
+    transform: translate(0, 0) scale(0.9);
+  }
+  50% {
+    transform: translate(4vw, 4vh) scale(1.15);
+  }
+  100% {
+    transform: translate(-4vw, -4vh) scale(0.9);
+  }
+}
+
+@keyframes float-shape {
+  0% {
+    transform: translateY(0) rotate(-15deg);
+  }
+  100% {
+    transform: translateY(20px) rotate(-8deg);
+  }
+}
+
+@keyframes float-shape-reverse {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translateY(-25px) rotate(10deg) scale(0.95);
+  }
+}
+
+@keyframes float-shape-waves {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-15px, 15px) scale(1.05);
+  }
+}
+
+/* Responsive configurations for decorations */
+@media (max-width: 768px) {
+  .vector-shape {
+    opacity: 0.5; /* Fade out vector lines on mobile for cleaner view */
+  }
+  
+  .shape-spiral {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .shape-arches {
+    width: 100px;
+    height: 200px;
+  }
+  
+  .shape-circles {
+    width: 150px;
+    height: 150px;
+  }
+
+  .shape-waves {
+    width: 200px;
+    height: 100px;
+  }
+}

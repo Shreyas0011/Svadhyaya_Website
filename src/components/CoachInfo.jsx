@@ -51,9 +51,6 @@ const CoachInfo = () => {
                 The success of the program inspired her to get her Professional Coach Certification (PCC) from the ICF (International Coaching Federation). Her work is based on positive psychology, spiritual growth, self-reflection, understanding values, questioning belief systems, unlearning, unconditioning, acceptance and mindfulness. She is currently a visiting faculty at one of the KFI group schools and continues home-schooling AJ. She is a minimalist and has implemented a sustainable lifestyle in her urban home.
               </p>
 
-              <p>
-                She is currently pursuing her Master's in Psychology and Master Coach Certification to continue creating positive powerful impact in the lives that she crosses paths with!
-              </p>
 
               <p className="coach-highlight">
                 In continuation of her quest to find a learning space that promotes freedom, acceptance and the joy of learning she has now created Svadhyaya's Climb Studio.
