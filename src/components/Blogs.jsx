@@ -102,6 +102,7 @@ const Blogs = () => {
     if (post.content) {
       e.preventDefault();
       setSelectedPost(post);
+      window.lenis?.stop();
       // Disable body scroll
       document.body.style.overflow = 'hidden';
     }
@@ -109,9 +110,17 @@ const Blogs = () => {
 
   const closeModal = () => {
     setSelectedPost(null);
+    window.lenis?.start();
     // Enable body scroll
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = '';
   };
+
+  useEffect(() => {
+    return () => {
+      window.lenis?.start();
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   return (
     <>

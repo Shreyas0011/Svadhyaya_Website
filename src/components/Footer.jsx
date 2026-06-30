@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
-import { FaInstagram, FaTwitter, FaFacebook } from 'react-icons/fa';
+import { FaInstagram } from 'react-icons/fa';
 import './Footer.css';
 
 const Footer = () => {
@@ -10,15 +10,15 @@ const Footer = () => {
         <div className="footer-grid">
           <div className="footer-brand">
             <a href="/" className="footer-logo-link">
-              <img src="/images/logo.png" alt="Svadhyaya Climb Studio" className="footer-logo-image" />
+              <img src="/images/logo.png" alt="Svadhyaya Learning Space" className="footer-logo-image" />
             </a>
             <p className="footer-desc">
               A sanctuary for inner growth, creative expression, and conscious living. Your journey to self begins here.
             </p>
             <div className="footer-socials">
-              <a href="#" aria-label="Instagram"><FaInstagram size={20} /></a>
-              <a href="#" aria-label="Facebook"><FaFacebook size={20} /></a>
-              <a href="#" aria-label="Twitter"><FaTwitter size={20} /></a>
+              <a href="https://www.instagram.com/svadhyaya.co/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <FaInstagram size={20} />
+              </a>
             </div>
           </div>
           
@@ -47,7 +47,7 @@ const Footer = () => {
               </li>
               <li>
                 <Phone size={18} />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 99000 12345</span>
               </li>
             </ul>
           </div>
@@ -56,8 +56,10 @@ const Footer = () => {
             <h3>Stay Connected</h3>
             <p>Subscribe to our newsletter for upcoming events and community stories.</p>
             <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Your email address" required />
-              <button type="submit" className="btn btn-primary">Subscribe</button>
+              <div className="newsletter-input-group">
+                <input type="email" placeholder="Your email address" required />
+                <button type="submit" className="newsletter-btn">Subscribe</button>
+              </div>
             </form>
           </div>
         </div>

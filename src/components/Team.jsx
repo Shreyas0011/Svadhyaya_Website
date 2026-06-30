@@ -66,13 +66,13 @@ For me, both Bharatanatyam and natural dyeing are not just creative practices, b
     experience: 'Outdoors Guide',
     bio: `Nikhil Fernandes has been working in the education space and curating experiences for children and adults over the last couple of years. His own experience in a typical schooling system, which caters to specific types of people, has been a learning experience.
 
-He currently facilitates urban walks, rock climbing workshops, night walks and camping trips through Wilderness Ways, an organisation whose focus is to give urban people the opportunity to reconnect with nature, learn about our surroundings and our senses through the natural world.
+He currently facilitates urban walks, rock bouldering workshops, night walks and camping trips through Wilderness Ways, an organisation whose focus is to give urban people the opportunity to reconnect with nature, learn about our surroundings and our senses through the natural world.
 
 He designed and conducts a program called Public Space Learning that involves visiting public spaces around the city using only public transport and feel every step of the journey for the students of Abheek Academy. The goal is to allow children to experience what the meaning of their privilege is and to allow them to be out of their comfort zones. He also designed Campus time i.e. the time they spend on campus, exploring the possibilities of what can be done with the space using only the resources available around them. This includes, caring for and nurturing plants, creating spaces to engage with using only waste materials, and working on personal relationships with each child.
 
 Art has always been an integral part of his life. He is currently a practicing freelance artist, with a focus on filmmaking and illustration work. He believes, there is no limit to exploring new possibilities, music, photography, sculpting and creating installations.
 
-Climbing is something that he found in the past two years, to be incredible way to engage your whole mind and body in a single activity. Facing his emotions and limitations, has allowed for immense growth in his life.`,
+Bouldering is something that he found in the past two years, to be incredible way to engage your whole mind and body in a single activity. Facing his emotions and limitations, has allowed for immense growth in his life.`,
     highlights: [
       'Guide at Wilderness Ways',
       'Creator of Public Space Learning Program',
@@ -106,18 +106,18 @@ His recognized performances include the Thygaraja Araadhana festival in Thiruvai
     role: 'Facilitator - Bouldering',
     color: 'var(--color-orange)',
     experience: 'Strength & Conditioning Coach',
-    bio: `Akshay Kumar KV is a dedicated outdoor enthusiast and climbing instructor who has built a career around his passion for movement. Recognizing early on that climbing and the outdoors perfectly channeled his natural energy and restlessness, he committed himself to mastering the sport.
+    bio: `Akshay Kumar KV is a dedicated outdoor enthusiast and bouldering instructor who has built a career around his passion for movement. Recognizing early on that bouldering and the outdoors perfectly channeled his natural energy and restlessness, he committed himself to mastering the sport.
 
-Through his work with various climbing gyms, he had the opportunity to train directly under experienced mentors, honing his bouldering and rope skills. Today, he passes on this wealth of knowledge to both adults and children, helping them build confidence and strength on the wall.
+Through his work with various bouldering gyms, he had the opportunity to train directly under experienced mentors, honing his bouldering and rope skills. Today, he passes on this wealth of knowledge to both adults and children, helping them build confidence and strength on the wall.
 
-In addition to climbing, Akshay is a certified Strength and Conditioning Coach, specializing in post-injury rehabilitation, enabling him to bring a deep understanding of body mechanics, safety, and recovery to his instruction.`,
+In addition to bouldering, Akshay is a certified Strength and Conditioning Coach, specializing in post-injury rehabilitation, enabling him to bring a deep understanding of body mechanics, safety, and recovery to his instruction.`,
     highlights: [
       'Certified Strength & Conditioning Coach',
       'Post-Injury Rehabilitation Specialist',
       'Professional Bouldering & Rope Instructor',
-      'Mentored in Premium Climbing Gyms'
+      'Mentored in Premium Bouldering Gyms'
     ],
-    philosophy: 'Climbing and the outdoors channel natural energy, turning physical movement into a tool for focus and growth.'
+    philosophy: 'Bouldering and the outdoors channel natural energy, turning physical movement into a tool for focus and growth.'
   },
   {
     id: 'om_rahul_dev',
@@ -170,18 +170,21 @@ const Team = () => {
       return;
     }
     setSelectedTrainer(trainer);
+    window.lenis?.stop();
     document.body.style.overflow = 'hidden';
   };
 
   const closeTrainerModal = () => {
     setSelectedTrainer(null);
-    document.body.style.overflow = 'auto';
+    window.lenis?.start();
+    document.body.style.overflow = '';
   };
 
   useEffect(() => {
     return () => {
       // Ensure body scroll is restored on unmount
-      document.body.style.overflow = 'auto';
+      window.lenis?.start();
+      document.body.style.overflow = '';
     };
   }, []);
 

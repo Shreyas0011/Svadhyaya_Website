@@ -1,25 +1,26 @@
 .navbar {
   position: fixed;
-  top: 1.5rem;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
   width: 92%;
-  max-width: 1200px;
+  max-width: 880px; /* Snug fit for all menu items and contact button */
   z-index: 1000;
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navbar.scrolled {
-  top: 1rem;
+  top: 0.6rem;
 }
 
 .navbar-container {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  padding: 0.8rem 2.2rem;
+  padding: 0.5rem 1.6rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* Place menu next to logo */
+  gap: 2.5rem; /* Gap between logo and the About link */
   align-items: center;
   border-radius: 99px;
   box-shadow: 
@@ -38,7 +39,7 @@
     0 20px 50px rgba(46, 49, 146, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
   border-color: rgba(255, 255, 255, 0.6);
-  padding: 0.6rem 2.2rem;
+  padding: 0.4rem 1.6rem;
   transform: scale(0.99);
 }
 
@@ -53,10 +54,14 @@
 }
 
 .logo-image {
-  height: 42px;
+  height: 54px;
   width: auto;
   object-fit: contain;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar.scrolled .logo-image {
+  height: 46px;
 }
 
 .logo-wrapper:hover .logo-image {
@@ -66,7 +71,8 @@
 .desktop-menu {
   display: none;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem; /* Shrunk gap from 1rem */
+  flex: 1; /* Stretch to occupy layout space */
 }
 
 @media (min-width: 992px) {
@@ -76,17 +82,24 @@
 }
 
 .nav-link {
-  font-size: 0.95rem;
+  font-size: 0.92rem; /* Shrunk font-size from 0.95rem */
   font-weight: 500;
   color: var(--color-text);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1rem; /* Shrunk padding from 0.6rem 1.2rem */
   border-radius: 99px;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   letter-spacing: 0.01em;
+  white-space: nowrap; /* Prevent link text wrapping */
+}
+
+.btn.nav-contact {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.92rem;
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 .nav-link::before {
@@ -277,13 +290,14 @@
   background: transparent !important;
   border: 1.5px solid var(--color-blue) !important;
   color: var(--color-blue) !important;
-  padding: 0.65rem 1.75rem !important;
+  padding: 0.5rem 1.2rem !important;
   border-radius: 99px !important;
   font-weight: 600 !important;
-  font-size: 0.95rem !important;
+  font-size: 0.92rem !important;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   box-shadow: none !important;
+  white-space: nowrap !important; /* Prevent wrapping */
 }
 
 .nav-contact:hover {
@@ -306,6 +320,7 @@
   color: var(--color-text);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-left: auto; /* Push toggle to far right on mobile */
 }
 
 .mobile-toggle:hover {
@@ -333,9 +348,24 @@
   box-shadow: 
     0 15px 45px rgba(46, 49, 146, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  overflow: hidden;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46, 49, 146, 0.2) transparent;
   margin-top: 1rem;
+}
+
+.mobile-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mobile-menu::-webkit-scrollbar-thumb {
+  background-color: rgba(46, 49, 146, 0.2);
+  border-radius: 99px;
 }
 
 .mobile-menu-content {

@@ -26,10 +26,12 @@
 .ambient-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.15;
-  mix-blend-mode: multiply;
+  filter: blur(80px);
+  opacity: 0.12;
   pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .blob-1 {
@@ -65,7 +67,7 @@
   width: 30vw;
   height: 30vw;
   background: radial-gradient(circle, var(--color-green) 0%, transparent 70%);
-  opacity: 0.1;
+  opacity: 0.08;
   animation: float-blob-mid 30s infinite alternate ease-in-out;
 }
 
@@ -73,6 +75,9 @@
 .vector-shape {
   position: absolute;
   pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .shape-spiral {
@@ -111,64 +116,64 @@
 /* Keyframes for smooth animations */
 @keyframes float-blob-slow {
   0% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate(6vw, -4vh) scale(1.1);
+    transform: translate3d(6vw, -4vh, 0) scale(1.1);
   }
   100% {
-    transform: translate(-3vw, 5vh) scale(0.9);
+    transform: translate3d(-3vw, 5vh, 0) scale(0.9);
   }
 }
 
 @keyframes float-blob-reverse {
   0% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate(-5vw, 6vh) scale(0.95);
+    transform: translate3d(-5vw, 6vh, 0) scale(0.95);
   }
   100% {
-    transform: translate(4vw, -5vh) scale(1.05);
+    transform: translate3d(4vw, -5vh, 0) scale(1.05);
   }
 }
 
 @keyframes float-blob-mid {
   0% {
-    transform: translate(0, 0) scale(0.9);
+    transform: translate3d(0, 0, 0) scale(0.9);
   }
   50% {
-    transform: translate(4vw, 4vh) scale(1.15);
+    transform: translate3d(4vw, 4vh, 0) scale(1.15);
   }
   100% {
-    transform: translate(-4vw, -4vh) scale(0.9);
+    transform: translate3d(-4vw, -4vh, 0) scale(0.9);
   }
 }
 
 @keyframes float-shape {
   0% {
-    transform: translateY(0) rotate(-15deg);
+    transform: translate3d(0, 0, 0) rotate(-15deg);
   }
   100% {
-    transform: translateY(20px) rotate(-8deg);
+    transform: translate3d(0, 20px, 0) rotate(-8deg);
   }
 }
 
 @keyframes float-shape-reverse {
   0% {
-    transform: translateY(0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
   100% {
-    transform: translateY(-25px) rotate(10deg) scale(0.95);
+    transform: translate3d(0, -25px, 0) rotate(10deg) scale(0.95);
   }
 }
 
 @keyframes float-shape-waves {
   0% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   100% {
-    transform: translate(-15px, 15px) scale(1.05);
+    transform: translate3d(-15px, 15px, 0) scale(1.05);
   }
 }
 

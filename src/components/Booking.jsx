@@ -6,13 +6,13 @@ import './Booking.css';
 import './Schedule.css';
 
 const sessionsData = {
-  climbing_adults: {
-    id: 'climbing_adults',
-    title: 'Climbing (Adults)',
+  bouldering_adults: {
+    id: 'bouldering_adults',
+    title: 'Bouldering (Adults)',
     duration: '2 Hours',
     color: 'var(--color-orange)',
     bgLight: 'rgba(242, 101, 34, 0.08)',
-    description: 'Indoor rock climbing session at our premium bouldering wall for adults.',
+    description: 'Indoor rock bouldering session at our premium bouldering wall for adults.',
     days: [1, 2, 3, 4, 5, 6], // Mon-Sat
     slots: {
       1: ['07:00 PM'], // Mon
@@ -27,13 +27,13 @@ const sessionsData = {
       { id: 'walkin', title: 'Walk-In Session', price: 750, description: 'Single entry walk-in' }
     ]
   },
-  climbing_kids: {
-    id: 'climbing_kids',
-    title: 'Climbing (Kids)',
+  bouldering_kids: {
+    id: 'bouldering_kids',
+    title: 'Bouldering (Kids)',
     duration: '2 Hours',
     color: 'rgba(147, 112, 219, 0.9)',
     bgLight: 'rgba(147, 112, 219, 0.08)',
-    description: 'Indoor rock climbing program designed specifically for kids.',
+    description: 'Indoor rock bouldering program designed specifically for kids.',
     days: [1, 3, 6], // Mon, Wed, Sat
     slots: {
       1: ['05:00 PM'], // Mon
@@ -118,16 +118,16 @@ const sessionsData = {
 
 const schedules = [
   {
-    id: 'climbing',
+    id: 'bouldering',
     title: 'The Climb Studio',
     subtitle: 'Bouldering (Adults & Kids)',
     image: '/images/class_schedule_1.jpg',
     color: 'var(--color-orange)',
     accentBg: 'rgba(242, 101, 34, 0.1)',
     quickLinks: [
-      { label: 'Adults Climbing', sessionKey: 'climbing_adults' },
-      { label: 'Kids Climbing', sessionKey: 'climbing_kids' },
-      { label: 'Walk-In Entry', sessionKey: 'climbing_adults', packageId: 'walkin' }
+      { label: 'Adults Bouldering', sessionKey: 'bouldering_adults' },
+      { label: 'Kids Bouldering', sessionKey: 'bouldering_kids' },
+      { label: 'Walk-In Entry', sessionKey: 'bouldering_adults', packageId: 'walkin' }
     ]
   },
   {
@@ -161,6 +161,21 @@ const Booking = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Stop/Start Lenis scroll for lightbox
+  useEffect(() => {
+    if (selectedImage) {
+      window.lenis?.stop();
+      document.body.style.overflow = 'hidden';
+    } else {
+      window.lenis?.start();
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.lenis?.start();
+      document.body.style.overflow = '';
+    };
+  }, [selectedImage]);
+
   // Scroll to hash anchor on load
   useEffect(() => {
     if (hash) {
@@ -177,15 +192,15 @@ const Booking = () => {
   
   const initialSession = searchParams.get('session');
   let resolvedSession = initialSession;
-  if (initialSession === 'climbing') resolvedSession = 'climbing_adults';
+  if (initialSession === 'bouldering' || initialSession === 'climbing') resolvedSession = 'bouldering_adults';
   else if (initialSession === 'kalaripayattu') resolvedSession = 'kalaripayattu_adults';
 
   const [selectedSession, setSelectedSession] = useState(
-    resolvedSession && sessionsData[resolvedSession] ? resolvedSession : 'climbing_adults'
+    resolvedSession && sessionsData[resolvedSession] ? resolvedSession : 'bouldering_adults'
   );
 
   const [selectedPackageId, setSelectedPackageId] = useState(() => {
-    const sessionKey = resolvedSession && sessionsData[resolvedSession] ? resolvedSession : 'climbing_adults';
+    const sessionKey = resolvedSession && sessionsData[resolvedSession] ? resolvedSession : 'bouldering_adults';
     return sessionsData[sessionKey].packages[0].id;
   });
 

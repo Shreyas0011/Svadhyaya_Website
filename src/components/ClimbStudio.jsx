@@ -6,10 +6,10 @@ import './ClimbStudio.css';
 
 const spaces = [
   {
-    id: 'climbing',
-    title: 'Climbing',
+    id: 'bouldering',
+    title: 'Bouldering',
     image: '/images/climbing.png',
-    description: 'Indoor rock climbing programs designed for both kids and adults to build strength and confidence.',
+    description: 'Indoor rock bouldering programs designed for both kids and adults to build strength and confidence.',
     span: 2,
     color: 'var(--color-orange)',
     content: (
@@ -319,12 +319,14 @@ const ClimbStudio = () => {
 
   const openSpaceModal = (space) => {
     setSelectedSpace(space);
+    window.lenis?.stop();
     document.body.style.overflow = 'hidden';
   };
 
   const closeSpaceModal = () => {
     setSelectedSpace(null);
-    document.body.style.overflow = 'auto';
+    window.lenis?.start();
+    document.body.style.overflow = '';
   };
 
   useEffect(() => {
@@ -337,7 +339,11 @@ const ClimbStudio = () => {
     };
 
     window.addEventListener('openStudioModal', handleOpenSpace);
-    return () => window.removeEventListener('openStudioModal', handleOpenSpace);
+    return () => {
+      window.removeEventListener('openStudioModal', handleOpenSpace);
+      window.lenis?.start();
+      document.body.style.overflow = '';
+    };
   }, []);
 
   return (
@@ -369,7 +375,7 @@ const ClimbStudio = () => {
           </div>
 
           <div className="space-grid" style={{ marginBottom: '5rem' }}>
-            {spaces.filter(s => s.id === 'climbing').map((space, index) => (
+            {spaces.filter(s => s.id === 'bouldering').map((space, index) => (
               <motion.div 
                 key={space.id} 
                 className="space-card span-3"
@@ -428,7 +434,7 @@ const ClimbStudio = () => {
           </div>
 
           <div className="space-grid">
-            {spaces.filter(s => s.id !== 'climbing').map((space, index) => (
+            {spaces.filter(s => s.id !== 'bouldering').map((space, index) => (
               <motion.div 
                 key={space.id} 
                 className={`space-card span-${space.span}`}

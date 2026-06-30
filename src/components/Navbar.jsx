@@ -55,6 +55,20 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      window.lenis?.stop();
+      document.body.style.overflow = 'hidden';
+    } else {
+      window.lenis?.start();
+      document.body.style.overflow = '';
+    }
+    return () => {
+      window.lenis?.start();
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
@@ -104,7 +118,7 @@ const Navbar = () => {
                       The Climb Studio
                     </Link>
                     <div className="dropdown-sub-items">
-                      <Link to="/#climb-studio" onClick={() => handleStudioClick('climbing')}>Climbing</Link>
+                      <Link to="/#climb-studio" onClick={() => handleStudioClick('bouldering')}>Bouldering</Link>
                     </div>
                   </div>
                   <div className="dropdown-group">
@@ -202,7 +216,7 @@ const Navbar = () => {
                     The Climb Studio
                   </Link>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', paddingLeft: '1rem', borderLeft: '1px solid rgba(0,0,0,0.05)' }}>
-                    <Link to="/#climb-studio" onClick={() => handleStudioClick('climbing')}>Climbing</Link>
+                    <Link to="/#climb-studio" onClick={() => handleStudioClick('bouldering')}>Bouldering</Link>
                   </div>
                 </div>
 

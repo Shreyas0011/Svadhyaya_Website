@@ -6,7 +6,7 @@ import './FAQ.css';
 const faqs = [
   {
     question: "What age groups are your programs for?",
-    answer: "Our core programs, including Climbing, Kalaripayattu, Bharatanatyam, and Mrudangam, are designed for both kids and adults. We tailor the sessions to suit the learning pace and physical capabilities of different age groups."
+    answer: "Our core programs, including Bouldering, Kalaripayattu, Bharatanatyam, and Mrudangam, are designed for both kids and adults. Children as young as 4 years old can join our programs. Children younger than 4 are welcome when accompanied by a parent for a shared child-and-parent experience. We tailor all sessions to suit the learning pace and physical capabilities of different age groups."
   },
   {
     question: "Do I need prior experience to join?",
@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "What is your pricing and fee structure?",
-    answer: "We offer both monthly and quarterly fee structures. Enrolling in our Quarterly Fee Structure provides a discounted rate compared to the monthly membership. Walk-in slots are also available for specific activities like climbing. You can view standard monthly prices on the booking form or contact us for detailed quarterly packages."
+    answer: "We offer both monthly and quarterly fee structures. Enrolling in our Quarterly Fee Structure provides a discounted rate compared to the monthly membership. Walk-in slots are also available for specific activities like bouldering. You can view standard monthly prices on the booking form or contact us for detailed quarterly packages."
   },
   {
     question: "What is the policy for missed sessions?",

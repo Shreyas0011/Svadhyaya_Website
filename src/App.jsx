@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -38,6 +38,8 @@ const BlogsPage = () => (
 );
 
 function App() {
+  const location = useLocation();
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -47,6 +49,8 @@ function App() {
       smooth: true,
     });
 
+    window.lenis = lenis;
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -54,20 +58,25 @@ function App() {
 
     requestAnimationFrame(raf);
 
-    // Scroll to hash on load or route change if hash exists
-    if (window.location.hash) {
-      setTimeout(() => {
-        const target = document.querySelector(window.location.hash);
-        if (target) {
-          lenis.scrollTo(target);
-        }
-      }, 100);
-    }
-
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, []);
+
+  useEffect(() => {
+    if (location.hash) {
+      setTimeout(() => {
+        const element = document.getElementById(location.hash.substring(1));
+        if (element) {
+          window.lenis?.scrollTo(element);
+        }
+      }, 100);
+    } else {
+      window.lenis?.scrollTo(0, { immediate: true });
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, location.hash]);
 
   return (
     <>

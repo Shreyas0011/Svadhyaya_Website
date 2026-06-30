@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import './About.css';
 
 const About = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section id="about" className="about section-padding">
       <div className="container">
@@ -59,6 +61,17 @@ const About = () => {
             <p style={{ fontWeight: 600, color: 'var(--color-blue)', marginTop: '1.5rem' }}>
               At Svadhyaya, we are building a space where learning is lifelong, community is intentional, and every journey begins with discovering yourself.
             </p>
+
+            <div>
+              <button className="btn-logo-about" onClick={() => setIsModalOpen(true)}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '0.4rem' }}>
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 16v-4"/>
+                  <path d="M12 8h.01"/>
+                </svg>
+                About the Logo
+              </button>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -76,6 +89,49 @@ const About = () => {
           ></path>
         </svg>
       </div>
+
+      {/* Modern Dialog Modal for Logo Meaning */}
+      {isModalOpen && (
+        <div className="logo-modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="logo-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="logo-modal-close" onClick={() => setIsModalOpen(false)} aria-label="Close modal">
+              &times;
+            </button>
+            <div className="logo-modal-grid">
+              <div className="logo-modal-image-wrapper">
+                <img 
+                  src="/images/logo_concept.png" 
+                  alt="Nautilus Shell Logo Concept Infographic" 
+                  className="logo-modal-image" 
+                />
+              </div>
+              <div className="logo-modal-text-wrapper">
+                <h3 className="logo-modal-title">Our Design Concept</h3>
+                <p className="logo-modal-description">
+                  The Nautilus Shell is a symbol of growth, evolution, and the interconnectedness of life. It represents the natural beauty and mathematical perfection found in nature, embodying the concept of continuous expansion and self-improvement.
+                </p>
+                <p className="logo-modal-description">
+                  The Nautilus Shell encourages us to embrace the journey of personal growth, seeking wisdom and understanding as we navigate the ever-changing currents of life.
+                </p>
+                
+                <div className="logo-modal-formula">
+                  <div className="formula-part">
+                    <span>Nautilus / Golden Ratio</span>
+                  </div>
+                  <div className="formula-plus">+</div>
+                  <div className="formula-part">
+                    <span>Svadhyaya</span>
+                  </div>
+                  <div className="formula-arrow">&rarr;</div>
+                  <div className="formula-part highlight">
+                    <span>Our Logo Icon</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

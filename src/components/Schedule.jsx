@@ -21,7 +21,7 @@ const Schedule = () => {
 
   const schedules = [
     {
-      id: 'climbing',
+      id: 'bouldering',
       title: 'The Climb Studio',
       subtitle: 'Bouldering (Adults & Kids)',
       image: '/images/class_schedule_1.jpg',
@@ -102,7 +102,7 @@ const Schedule = () => {
           </svg>
         </div>
 
-        <div className="character-element climbing-illustration">
+        <div className="character-element bouldering-illustration">
           <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" strokeWidth="3">
             <path d="M10 110 L40 70 L60 90 L90 30 L110 50" strokeLinecap="round" strokeLinejoin="round" />
             <circle cx="90" cy="20" r="5" fill="currentColor" />
